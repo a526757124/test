@@ -1,0 +1,5 @@
+enabled: true
+path: /usr/local
+siteconf:
+  prot: 8080
+  domain: www.baidu.com
