@@ -16,3 +16,32 @@
 ### git add [dir] 添加指定目录到暂存区，包括子目录
 ### git add . 添加当前目录的所有文件到暂存区
 ### git rm [file1] [file2] ... 删除工作区文件，并且将这次删除放入暂存区
+
+
+## 代码提交
+### git commit -m [message] 提交暂存区到仓库区
+### git commit [file1] [file2] ... -m [message] 提交暂存区的指定文件到仓库区
+### git commit -v 提交时显示所有diff信息
+
+## 分支 
+### git branch 列表所有本地分支
+### git branch -r 列表所有远程分支
+### git branch [branch-name] 创建一个新分支，但依然停留在当前分支
+### git checkout -b [branch] 新建一个分支，并切换到该分支
+### git checkout [branch-name] 切换到指定分支，并更新工作区
+### git checkout - 切换到上一个分支
+### git merage [branch] 合并指定分支到当前分支
+### git branch -d [branch-name] 删除分支
+
+### git push origin --delete [branch-name]  删除远程分支
+### git branch -dr [remote/branch]
+
+## 标签
+
+### git tag
+### git tag [tag]
+### git tag -d [tag]
+### git push origin :refs/tags/[tagName]
+### git show [tag]
+### git push [remote] [tag]
+### gti push [remote] --tags
