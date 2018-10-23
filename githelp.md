@@ -36,6 +36,17 @@
 ### git push origin --delete [branch-name]  删除远程分支
 ### git branch -dr [remote/branch]
 
+## 远程同步
+### git remote update 更新远程仓库
+### git fetch [remote] 下载远程仓库所有变动
+### git remote -v 显示所有远程仓库
+### git remote show [remote] 显示某个远程仓库信息
+### git remote add [shortname] [url] 增加一个新的远程仓库，并命名
+### git pull [remote] [branch] 取回远程仓库变化，并与本地分支合并
+### git push [remote] [branch] 上传本地到远程仓库
+### git push [remote] --force 强行推送当前分支到远程仓库，即使有冲突
+### git push [remote] --all 推送所有分支到远程仓库 
+
 ## 标签
 
 ### git tag
