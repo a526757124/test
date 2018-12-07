@@ -30,7 +30,7 @@
 ### git checkout -b [branch] 新建一个分支，并切换到该分支
 ### git checkout [branch-name] 切换到指定分支，并更新工作区
 ### git checkout - 切换到上一个分支
-### git merage [branch] 合并指定分支到当前分支
+### git merge [branch] 合并指定分支到当前分支
 ### git branch -d [branch-name] 删除分支
 
 ### git push origin --delete [branch-name]  删除远程分支
