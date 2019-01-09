@@ -24,12 +24,21 @@ func main() {
 	db.DefaultCollectionName = collectionName_Demo
 	user := &User{
 		Id:   mongo.NewObjectId(),
-		Name: "test1",
+		Name: "abc",
 	}
 	err := db.InsertBlob(user)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
+	pipeLine := []bson.M{
+		//bson.M{"name": "test1"},
+		bson.M{"name": bson.M{"$regex": bson.RegEx{"a", "i"}}},
+	}
+	pipeLine = append(pipeLine, bson.M{"name": "abc"})
+	var users = []*User{}
+
+	db.FindList(bson.M{"$and": pipeLine}, 0, 0, &users)
+	fmt.Println(len(users))
 
 	// session, err := mgo.Dial("118.31.32.168:27017")
 	// if err != nil {
