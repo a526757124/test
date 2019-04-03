@@ -6,12 +6,12 @@ import (
 	"time"
 
 	"github.com/devfeel/dotweb"
-	"github.com/devfeel/middleware/cors"
 )
 
 func main() {
 	app := dotweb.New()
-	app.Use(cors.DefaultMiddleware())
+	app.SetProductionMode()
+	app.HttpServer.SetEnabledAutoOPTIONS(false)
 	InitRoute(app.HttpServer)
 	err := app.StartServer(8888)
 
@@ -20,17 +20,32 @@ func main() {
 	}
 }
 func InitRoute(server *dotweb.HttpServer) {
-	server.SetEnabledGzip(true)
-	server.Router().ServerFile("/file/*filepath", "")
-	server.POST("/upload", Upload)
-	server.POST("/home", Home)
-	server.Any("/application", GetApplicationList)
+	//server.SetEnabledGzip(true)
+	//server.Router().ServerFile("/file/*filepath", "")
+	//server.POST("/upload", Upload)
+	server.GET("/home", Home)
+	//server.Any("/application", GetApplicationList)
+	server.GET("/a/:arg1", func(ctx dotweb.Context) error {
+		fmt.Println(ctx.GetRouterName("arg1"))
+		fmt.Println(1)
+		return nil
+	})
+	server.GET("/a/:arg1/b/:arg2", func(ctx dotweb.Context) error {
+		fmt.Println(2)
+		fmt.Println(ctx.Request().Url())
+		fmt.Println(server.Router().MatchPath(ctx, "/a/:arg1/b/:arg2"))
+		fmt.Println(ctx.GetRouterName("arg1"))
+		fmt.Println(ctx.GetRouterName("arg2"))
+		fmt.Println(3)
+		return nil
+	})
 
 }
-func NewCustomCROS() dotweb.Middleware {
-	option := cors.NewConfig().UseDefault()
-	return cors.Middleware(option)
-}
+
+// func NewCustomCROS() dotweb.Middleware {
+// 	option := cors.NewConfig().UseDefault()
+// 	return cors.Middleware(option)
+// }
 
 type Application struct {
 	Name       string    `json:"name"`

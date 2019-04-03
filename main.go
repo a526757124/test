@@ -30,4 +30,61 @@ func main() {
 	i := t.Minute()               //分钟
 	s := t.Second()               //秒
 	fmt.Println(y, m, d, h, i, s) //2018 July 11 15 24 59
+
+	// for i := 0; i < 1000; i++ {
+	// 	httpHandler()
+	// }
+
+	fmt.Println(test1())
+	fmt.Println(test2())
+	fmt.Println(test3(0))
+	fmt.Println(test4(0))
+
+}
+
+func test1() int {
+	i := 0
+	defer func() {
+		i = i + 1
+	}()
+	return i
+}
+
+func test2() (i int) {
+	i = 0
+	defer func() {
+		i = i + 1
+	}()
+	return i
+}
+
+func test3(i int) int {
+	defer func() {
+		i = i + 1
+	}()
+	return i
+}
+func test4(i int) (ii int) {
+	ii = i
+	defer func() {
+		ii = ii + 1
+	}()
+	return 10
+}
+
+func httpHandler() {
+	errCh := make(chan error, 1)
+	resultCh := make(chan error, 1)
+
+	go func() {
+		defer close(errCh)
+		defer close(resultCh)
+		errCh <- fmt.Errorf("shit")
+	}()
+
+	select {
+	case <-errCh:
+	case <-resultCh:
+		fmt.Println("this shall not happen dude!")
+	}
 }
