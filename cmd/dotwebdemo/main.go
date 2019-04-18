@@ -14,7 +14,7 @@ func main() {
 	app.HttpServer.SetEnabledAutoOPTIONS(false)
 	InitRoute(app.HttpServer)
 	err := app.StartServer(8888)
-
+	fmt.Println("启动8888...");
 	if err != nil {
 		fmt.Println(err.Error())
 	}
