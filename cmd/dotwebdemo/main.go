@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"strconv"
 	"time"
-
 	"github.com/devfeel/dotweb"
 )
 
@@ -13,8 +12,8 @@ func main() {
 	app.SetProductionMode()
 	app.HttpServer.SetEnabledAutoOPTIONS(false)
 	InitRoute(app.HttpServer)
-	err := app.StartServer(8888)
 	fmt.Println("启动8888...");
+	err := app.StartServer(8888)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
