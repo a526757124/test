@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mytest
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: mytest
+    spec:
+      containers:
+      - name: mytest
+        image: registry.cn-hangzhou.aliyuncs.com/biily/aa:v1.0
+        ports:
+        - containerPort: 80
