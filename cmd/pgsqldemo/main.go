@@ -136,13 +136,34 @@ type UserInfo struct {
 }
 
 func UsePostgresSqlDBContext() {
-	db := postgressql.NewPostgresSqlDBContext("host=118.31.32.168 port=5432 user=postgres password=123456 dbname=mytest sslmode=disable")
-	// n, err := db.Insert("INSERT INTO userinfo(id,name) VALUES($1,$2)", 1, "李四")
+    db := postgressql.NewPostgresSqlDBContext("host=118.31.32.168 port=5432 user=postgres password=123456 dbname=mytest sslmode=disable")
+    
+    resultProc, err := db.ExecProc("add", 3, 2)
+    if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(resultProc)
+	}
+	// n, err := db.Insert("INSERT INTO userinfo(id,name) VALUES($1,$2)", 5, "李四")
 	// if err != nil {
 	// 	fmt.Println(err)
 	// } else {
 	// 	fmt.Println(n)
-	// }
+    // }
+    
+    sum, err := db.Scalar("select sum(1) from userinfo")
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(sum)
+    }
+    
+    max, err := db.Scalar("select max(id) from userinfo")
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(max)
+	}
 	// for i := 0; i < 10; i++ {
 	// 	n, err := db.Insert("INSERT INTO userinfo(id,name) VALUES($1,$2)", i, i)
 	// 	if err != nil {
@@ -153,14 +174,14 @@ func UsePostgresSqlDBContext() {
 	// }
 
 	result := new(UserInfo)
-	err := db.FindOne(result, "SELECT * FROM userinfo where id=$1 limit 1", 1)
+	err = db.FindOne(result, "SELECT * FROM userinfo where id=$1 limit 1", 1)
 	if err != nil {
 		fmt.Println(err)
 	} else {
 		fmt.Println(result)
 	}
 
-	count, err := db.Count("SELECT count(*) FROM userinfo")
+	count, err := db.Scalar("SELECT count(*) FROM userinfo")
 	if err != nil {
 		fmt.Println(err)
 	} else {
@@ -195,7 +216,7 @@ func UsePostgresSqlDBContext() {
 	// }
 
 	var results []*UserInfo
-	err = db.FindList(results, "SELECT * FROM userinfo")
+	err = db.FindList(&results, "SELECT * FROM userinfo")
 	if err != nil {
 		fmt.Println(err)
 	} else {
@@ -209,12 +230,16 @@ func UsePostgresSqlDBContext() {
 	// 	fmt.Println(resultMap)
 	// }
 
-	// err = db.FindListByPage(results, "userinfo", "*", "", "", 10, 0)
-	// if err != nil {
-	// 	fmt.Println(err)
-	// } else {
-	// 	fmt.Println(results)
-	// }
+	err = db.FindListByPage(&results, "userinfo", "*", "id>$1", "id ASC", 10, 0,0)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+        fmt.Println(results)
+        for i,v:= range results{
+            fmt.Println(i)
+            fmt.Println(v)
+        }
+	}
 }
 func main() {
 	UsePostgresSqlDBContext()
