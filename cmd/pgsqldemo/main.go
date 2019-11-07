@@ -138,12 +138,12 @@ type UserInfo struct {
 func UsePostgresSqlDBContext() {
     db := postgressql.NewPostgresSqlDBContext("host=118.31.32.168 port=5432 user=postgres password=123456 dbname=mytest sslmode=disable")
     
-    resultProc, err := db.ExecProc("add", 3, 2)
-    if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println(resultProc)
-	}
+    // resultProc, err := db.ExecProc("add", 3, 2)
+    // if err != nil {
+	// 	fmt.Println(err)
+	// } else {
+	// 	fmt.Println(resultProc)
+	// }
 	// n, err := db.Insert("INSERT INTO userinfo(id,name) VALUES($1,$2)", 5, "李四")
 	// if err != nil {
 	// 	fmt.Println(err)
@@ -151,7 +151,7 @@ func UsePostgresSqlDBContext() {
 	// 	fmt.Println(n)
     // }
     
-    sum, err := db.Scalar("select sum(1) from userinfo")
+    sum, err := db.Scalar("select id,name from userinfo")
 	if err != nil {
 		fmt.Println(err)
 	} else {
@@ -181,7 +181,7 @@ func UsePostgresSqlDBContext() {
 		fmt.Println(result)
 	}
 
-	count, err := db.Scalar("SELECT count(*) FROM userinfo")
+	count, err := db.Scalar("SELECT * FROM userinfo")
 	if err != nil {
 		fmt.Println(err)
 	} else {
